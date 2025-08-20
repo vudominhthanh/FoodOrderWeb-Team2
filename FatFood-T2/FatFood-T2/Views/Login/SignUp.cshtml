@@ -1,0 +1,97 @@
+﻿@model FatFood_T2.Models.User
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+        font-family: Arial, sans-serif;
+        margin-bottom: 60px;
+        background-image: url('/image/image3.jpeg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .signup-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .signupform {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 35px 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 420px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(12px);
+    }
+
+        .signupform h3 {
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+        }
+
+    .btn-success {
+        font-weight: 600;
+        padding: 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+</style>
+
+<div class="signup-wrapper">
+    <div class="signupform">
+        <h3 class="text-center"><i class="fa-solid fa-user-plus"></i></h3>
+
+        <form asp-action="SignUp" method="post">
+            <div class="mb-3">
+                <label asp-for="FName" class="form-label">Full Name</label>
+                <input asp-for="FName" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PasswordHash" class="form-label">Password</label>
+                <input asp-for="PasswordHash" type="password" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label">Phone</label>
+                <input asp-for="Phone" type="text" class="form-control" />
+            </div>
+
+            <input type="hidden" asp-for="Role" value="0" />
+
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+        </form>
+    </div>
+</div>

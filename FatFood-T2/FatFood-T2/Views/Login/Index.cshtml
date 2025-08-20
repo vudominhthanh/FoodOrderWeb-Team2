@@ -1,0 +1,154 @@
+﻿<style>
+    body {
+        background: #f5f7fa;
+        font-family: Arial, sans-serif;
+        margin-bottom: 60px;
+        background-image: url('/image/image3.jpeg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+    }
+
+    .loginform {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 380px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(8px);
+    }
+
+        .loginform h3 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .loginform .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .loginform .form-control {
+            border-radius: 10px;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .loginform .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+            }
+
+        .loginform button {
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+            .loginform button:hover {
+                background-color: #0056b3;
+            }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-input {
+        margin-right: 8px;
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        font-size: 14px;
+        color: #444;
+        cursor: pointer;
+    }
+
+        .form-check-label a {
+            color: #007bff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+            .form-check-label a:hover {
+                text-decoration: underline;
+                color: #0056b3;
+            }
+        
+    .signin {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+        .signin .sign-in-btn {
+            border-radius: 8px;
+            padding: 8px;
+            font-weight: 600;
+            border: none;
+        }
+
+       
+        .signin .btn-left {
+            flex: 0 0 35%;
+        }
+
+        .signin .btn-right {
+            flex: 0 0 60%;
+        }
+</style>
+
+<div class="login-wrapper">
+    <div class="loginform">
+        <h3 class="text-center mb-4"><i class="fa-solid fa-user"></i></h3>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Index" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" required />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" name="password" required />
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="policyCheck" required>
+                <label class="form-check-label" for="policyCheck">
+                    Tôi đã đọc và đồng ý với <a href="/Login/Policy" target="_blank">Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+
+            <div class="signin">
+                <button type="submit" class="sign-in-btn btn-primary btn-left" asp-controller="Login" asp-action="SignUp">Sign Up</button>
+                <button type="submit" class="sign-in-btn btn-primary btn-right" asp-controller="Login" asp-action="ResSignUp">Restaurant Sign Up</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
