@@ -1,0 +1,169 @@
+﻿@model FatFood_T2.ViewModels.SignUpResViewModel
+@{
+    ViewData["Title"] = "Sign Up Owner";
+}
+
+<style>
+    body {
+        background: #f5f7fa;
+        font-family: Arial, sans-serif;
+        margin-bottom: 60px;
+        background-image: url('/image/image3.jpeg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .overlay {
+        
+    }
+
+    .signup-form {
+        position: relative;
+        z-index: 2;
+        width: 420px;
+        margin: 80px auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(8px);
+    }
+
+        .signup-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+    .form-label {
+        font-weight: 500;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .policy {
+        font-size: 13px;
+    }
+
+    #map {
+        height: 200px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="overlay"></div>
+
+<div class="signup-form">
+    <h3><i class="fa-solid fa-house-circle-check"></i></h3>
+    <form asp-action="SignUpRes" method="post">
+        <!-- User -->
+        <div class="mb-3">
+            <label class="form-label">Owner Name</label>
+            <input asp-for="FName" class="form-control" />
+            <span asp-validation-for="FName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input asp-for="Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input asp-for="PasswordHash" type="password" class="form-control" />
+            <span asp-validation-for="PasswordHash" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <hr />
+        <!-- Restaurant -->
+        <div class="mb-3">
+            <label class="form-label">Restaurant Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <!-- Google Map -->
+        <div class="mb-3">
+            <label class="form-label">Choose Location</label>
+            <div id="map"></div>
+            <input type="hidden" asp-for="Latitude" id="Latitude" />
+            <input type="hidden" asp-for="Longitude" id="Longitude" />
+            <span asp-validation-for="Latitude" class="text-danger"></span>
+            <span asp-validation-for="Longitude" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <!-- Policy -->
+        <div class="form-check mb-3 policy">
+            <input asp-for="AcceptPolicy" class="form-check-input" type="checkbox" />
+            <label class="form-check-label">I accept the <a href="#">policy</a>.</label>
+            <span asp-validation-for="AcceptPolicy" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <form>
+        <div class="signin mt-3">
+            <button type="submit" class="btn btn-primary" asp-controller="Login" asp-action="Index"><i class="fa-solid fa-arrow-left"></i></button>
+		</div>
+    </form>
+</div>
+
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+<script>
+    let map, marker;
+    function initMap() {
+        const defaultLocation = { lat: 21.0285, lng: 105.8542 }; // Hà Nội
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: defaultLocation,
+            zoom: 14,
+        });
+
+        marker = new google.maps.Marker({
+            position: defaultLocation,
+            map: map,
+            draggable: true
+        });
+
+        marker.addListener("dragend", function (event) {
+            document.getElementById("Latitude").value = event.latLng.lat();
+            document.getElementById("Longitude").value = event.latLng.lng();
+        });
+
+        map.addListener("click", function (event) {
+            marker.setPosition(event.latLng);
+            document.getElementById("Latitude").value = event.latLng.lat();
+            document.getElementById("Longitude").value = event.latLng.lng();
+        });
+    }
+    window.onload = initMap;
+</script>

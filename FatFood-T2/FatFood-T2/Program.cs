@@ -15,8 +15,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FoodOrderWebNhom2Context>(options =>
     options.UseSqlServer(connectionString));
+    
 
-var app = builder.Build();
+var app = builder.Build();  
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
